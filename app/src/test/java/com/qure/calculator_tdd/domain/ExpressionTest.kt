@@ -45,4 +45,11 @@ class ExpressionTest {
         val actual = expression.removeExpression()
         assertThat(actual.toString()).isEqualTo("1")
     }
+
+    @Test
+    fun `0일 때, 지우기를 누르면 0이 보여야한다`() {
+        val expression = Expression.EMPTY
+        val actual = expression.removeExpression()
+        assertThat(actual.toString()).isEqualTo("0")
+    }
 }
