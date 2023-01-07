@@ -33,8 +33,17 @@ data class Expression(private val values: List<Any> = emptyList()) {
     }
 
     fun removeExpression(): Expression {
+        if (isFirstExpressionEmpty()) {
+            return Expression(values)
+        }
         return Expression(values.dropLast(1))
     }
+
+    fun removeAllExpresstion(): Expression =
+        EMPTY
+
+    private fun isFirstExpressionEmpty() =
+        values.size == 1 && values.last() == 0
 
     companion object {
         val EMPTY = Expression(listOf(0))

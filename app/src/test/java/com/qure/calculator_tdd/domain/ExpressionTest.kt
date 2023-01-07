@@ -52,4 +52,11 @@ class ExpressionTest {
         val actual = expression.removeExpression()
         assertThat(actual.toString()).isEqualTo("0")
     }
+
+    @Test
+    fun `1 + 1일떄, 전체 지우기를 누르면 0이 보여야한다`() {
+        val expression = Expression(listOf(1, Operator.PLUS, 1))
+        val actual = expression.removeAllExpresstion()
+        assertThat(actual.toString()).isEqualTo("0")
+    }
 }
