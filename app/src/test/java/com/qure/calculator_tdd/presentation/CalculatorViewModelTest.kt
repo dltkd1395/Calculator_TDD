@@ -1,21 +1,38 @@
 package com.qure.calculator_tdd.presentation
 
 import com.qure.calculator_tdd.InstantTaskExecutorExtension
+import com.qure.calculator_tdd.MainDispatcherRule
+import com.qure.calculator_tdd.domain.HistoryRepository
 import com.qure.calculator_tdd.domain.Operator
+import com.qure.calculator_tdd.domain.model.Memory
 import com.qure.calculator_tdd.presentation.viewmodel.CalculatorViewModel
+import io.mockk.*
+import kotlinx.coroutines.*
+import io.mockk.impl.annotations.MockK
+import kotlinx.coroutines.test.runBlockingTest
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.Rule
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(InstantTaskExecutorExtension::class)
+@ExperimentalCoroutinesApi
+@ExtendWith(InstantTaskExecutorExtension::class, CoroutinesTestExtension::class)
 class CalculatorViewModelTest {
+
+    @ExperimentalCoroutinesApi
+    @Rule
+    val mainDispatcherRule = MainDispatcherRule()
 
     private lateinit var viewModel: CalculatorViewModel
 
+    @MockK
+    private lateinit var repository: HistoryRepository
+
     @BeforeEach
     fun setup() {
-        viewModel = CalculatorViewModel()
+        MockKAnnotations.init(this, relaxed = true)
+        viewModel = CalculatorViewModel(repository)
     }
 
     @Test
@@ -90,5 +107,26 @@ class CalculatorViewModelTest {
         }
 
         assertThat(viewModel.expression.value.toString()).isEqualTo("0")
+    }
+
+    @Test
+    fun `모든 히스토리를 불러온다`() = mainDispatcherRule.testDispatcher.runBlockingTest {
+        val expected = listOf(
+            Memory("1 + 1 = ", "2"),
+        )
+        coEvery { repository.getAll() } returns expected
+        viewModel.getAll()
+        assertThat(viewModel.memory.value).isEqualTo(expected)
+    }
+
+    @Test
+    fun `히스토리를 모두 삭제한다`() = mainDispatcherRule.testDispatcher.runBlockingTest {
+        val expected = listOf(
+            Memory("1 + 1", "= 2"),
+        )
+        coEvery { repository.getAll() } returns expected
+        viewModel.getAll()
+        viewModel.removeAllMemory()
+        assertThat(viewModel.memory.value).isEmpty()
     }
 }
