@@ -6,6 +6,7 @@ data class Expression(private val values: List<Any> = emptyList()) {
         return when (val last = values.lastOrNull()) {
             is Operator -> Expression(values + operand)
             is Int -> Expression(values.dropLast(1) + "$last$operand".toInt())
+            null -> Expression(listOf(operand))
             else -> throw IllegalArgumentException("피연산자 추가 실패")
         }
 
@@ -36,7 +37,7 @@ data class Expression(private val values: List<Any> = emptyList()) {
         if (isNumber() && isNumberLength()) {
             return removeNumberExpression()
         }
-        if (!isFirstExpressionEmpty()) {
+        if (isFirstExpressionEmpty()) {
             return EMPTY
         }
         return Expression(values.dropLast(1))

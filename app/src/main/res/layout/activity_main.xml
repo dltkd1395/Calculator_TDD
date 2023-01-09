@@ -1,235 +1,265 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/black"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <View
-        android:id="@+id/mainActivity_view"
+    <data>
+
+        <import type="com.qure.calculator_tdd.domain.Operator" />
+
+        <variable
+            name="viewmodel"
+            type="com.qure.calculator_tdd.presentation.viewmodel.CalculatorViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="110dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent"
+        android:background="@color/black"
+        tools:context=".presentation.MainActivity">
 
-    <TextView
-        android:id="@+id/mainActivity_textView_operator"
-        android:layout_width="match_parent"
-        android:layout_height="110dp"
-        android:gravity="right|bottom"
-        android:text="0"
-        android:textColor="@color/white"
-        android:textSize="40dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="10dp"
-        android:autoSizeTextType="uniform"
-        app:layout_constraintBottom_toBottomOf="@+id/mainActivity_view"
-        app:layout_constraintEnd_toEndOf="@+id/mainActivity_view"
-        app:layout_constraintTop_toTopOf="parent" />
+        <View
+            android:id="@+id/mainActivity_view"
+            android:layout_width="match_parent"
+            android:layout_height="110dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/mainActivity_button_one"
-        android:layout_width="80dp"
-        android:layout_height="90dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="175dp"
-        android:backgroundTint="@color/dark_gray"
-        android:text="1"
-        android:textSize="50dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mainActivity_view" />
+        <TextView
+            android:id="@+id/mainActivity_textView_operator"
+            android:layout_width="match_parent"
+            android:layout_height="110dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="10dp"
+            android:autoSizeTextType="uniform"
+            android:gravity="right|bottom"
+            android:text="@{viewmodel.expression.toString()}"
+            android:textColor="@color/white"
+            android:textSize="40dp"
+            app:layout_constraintBottom_toBottomOf="@+id/mainActivity_view"
+            app:layout_constraintEnd_toEndOf="@+id/mainActivity_view"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/mainActivity_button_two"
-        android:layout_width="80dp"
-        android:layout_height="90dp"
-        android:layout_marginStart="112dp"
-        android:layout_marginTop="175dp"
-        android:backgroundTint="@color/dark_gray"
-        android:text="2"
-        android:textSize="50dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mainActivity_view" />
+        <Button
+            android:id="@+id/mainActivity_button_one"
+            android:layout_width="80dp"
+            android:layout_height="90dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="175dp"
+            android:backgroundTint="@color/dark_gray"
+            android:onClick="@{() -> viewmodel.addToExpression(1)}"
+            android:text="1"
+            android:textSize="50dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mainActivity_view" />
 
-    <Button
-        android:id="@+id/mainActivity_button_three"
-        android:layout_width="80dp"
-        android:layout_height="90dp"
-        android:layout_marginStart="204dp"
-        android:layout_marginTop="175dp"
-        android:backgroundTint="@color/dark_gray"
-        android:text="3"
-        android:textSize="50dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mainActivity_view" />
+        <Button
+            android:id="@+id/mainActivity_button_two"
+            android:layout_width="80dp"
+            android:layout_height="90dp"
+            android:layout_marginStart="112dp"
+            android:layout_marginTop="175dp"
+            android:backgroundTint="@color/dark_gray"
+            android:onClick="@{() -> viewmodel.addToExpression(2)}"
+            android:text="2"
+            android:textSize="50dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mainActivity_view" />
 
-    <Button
-        android:id="@+id/mainActivity_button_four"
-        android:layout_width="80dp"
-        android:layout_height="90dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="285dp"
-        android:backgroundTint="@color/dark_gray"
-        android:text="4"
-        android:textSize="50dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mainActivity_view" />
+        <Button
+            android:id="@+id/mainActivity_button_three"
+            android:layout_width="80dp"
+            android:layout_height="90dp"
+            android:layout_marginStart="204dp"
+            android:layout_marginTop="175dp"
+            android:backgroundTint="@color/dark_gray"
+            android:onClick="@{() -> viewmodel.addToExpression(3)}"
+            android:text="3"
+            android:textSize="50dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mainActivity_view" />
 
-    <Button
-        android:id="@+id/mainActivity_button_five"
-        android:layout_width="80dp"
-        android:layout_height="90dp"
-        android:layout_marginStart="112dp"
-        android:layout_marginTop="285dp"
-        android:backgroundTint="@color/dark_gray"
-        android:text="5"
-        android:textSize="50dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mainActivity_view" />
+        <Button
+            android:id="@+id/mainActivity_button_four"
+            android:layout_width="80dp"
+            android:layout_height="90dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="285dp"
+            android:backgroundTint="@color/dark_gray"
+            android:onClick="@{() -> viewmodel.addToExpression(4)}"
+            android:text="4"
+            android:textSize="50dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mainActivity_view" />
 
-    <Button
-        android:id="@+id/mainActivity_button_six"
-        android:layout_width="80dp"
-        android:layout_height="90dp"
-        android:layout_marginStart="204dp"
-        android:layout_marginTop="285dp"
-        android:backgroundTint="@color/dark_gray"
-        android:text="6"
-        android:textSize="50dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mainActivity_view" />
+        <Button
+            android:id="@+id/mainActivity_button_five"
+            android:layout_width="80dp"
+            android:layout_height="90dp"
+            android:layout_marginStart="112dp"
+            android:layout_marginTop="285dp"
+            android:backgroundTint="@color/dark_gray"
+            android:onClick="@{() -> viewmodel.addToExpression(5)}"
+            android:text="5"
+            android:textSize="50dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mainActivity_view" />
 
-    <Button
-        android:id="@+id/mainActivity_button_seven"
-        android:layout_width="80dp"
-        android:layout_height="90dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="395dp"
-        android:backgroundTint="@color/dark_gray"
-        android:text="7"
-        android:textSize="50dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mainActivity_view" />
+        <Button
+            android:id="@+id/mainActivity_button_six"
+            android:layout_width="80dp"
+            android:layout_height="90dp"
+            android:layout_marginStart="204dp"
+            android:layout_marginTop="285dp"
+            android:backgroundTint="@color/dark_gray"
+            android:onClick="@{() -> viewmodel.addToExpression(6)}"
+            android:text="6"
+            android:textSize="50dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mainActivity_view" />
 
-    <Button
-        android:id="@+id/mainActivity_button_eight"
-        android:layout_width="80dp"
-        android:layout_height="90dp"
-        android:layout_marginStart="112dp"
-        android:layout_marginTop="395dp"
-        android:backgroundTint="@color/dark_gray"
-        android:text="8"
-        android:textSize="50dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mainActivity_view" />
+        <Button
+            android:id="@+id/mainActivity_button_seven"
+            android:layout_width="80dp"
+            android:layout_height="90dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="395dp"
+            android:backgroundTint="@color/dark_gray"
+            android:onClick="@{() -> viewmodel.addToExpression(7)}"
+            android:text="7"
+            android:textSize="50dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mainActivity_view" />
 
-    <Button
-        android:id="@+id/mainActivity_button_nine"
-        android:layout_width="80dp"
-        android:layout_height="90dp"
-        android:layout_marginStart="204dp"
-        android:layout_marginTop="395dp"
-        android:backgroundTint="@color/dark_gray"
-        android:text="9"
-        android:textSize="50dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mainActivity_view" />
+        <Button
+            android:id="@+id/mainActivity_button_eight"
+            android:layout_width="80dp"
+            android:layout_height="90dp"
+            android:layout_marginStart="112dp"
+            android:layout_marginTop="395dp"
+            android:backgroundTint="@color/dark_gray"
+            android:onClick="@{() -> viewmodel.addToExpression(8)}"
+            android:text="8"
+            android:textSize="50dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mainActivity_view" />
 
-    <Button
-        android:id="@+id/mainActivity_button_zero"
-        android:layout_width="80dp"
-        android:layout_height="90dp"
-        android:layout_marginStart="112dp"
-        android:layout_marginTop="512dp"
-        android:backgroundTint="@color/dark_gray"
-        android:text="0"
-        android:textSize="50dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mainActivity_view" />
+        <Button
+            android:id="@+id/mainActivity_button_nine"
+            android:layout_width="80dp"
+            android:layout_height="90dp"
+            android:layout_marginStart="204dp"
+            android:layout_marginTop="395dp"
+            android:backgroundTint="@color/dark_gray"
+            android:onClick="@{() -> viewmodel.addToExpression(9)}"
+            android:text="9"
+            android:textSize="50dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mainActivity_view" />
 
-    <Button
-        android:id="@+id/mainActivity_button_plus"
-        android:layout_width="80dp"
-        android:layout_height="90dp"
-        android:layout_marginStart="304dp"
-        android:layout_marginTop="175dp"
-        android:backgroundTint="@color/orange"
-        android:text="+"
-        android:textSize="50dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mainActivity_view" />
+        <Button
+            android:id="@+id/mainActivity_button_zero"
+            android:layout_width="80dp"
+            android:layout_height="90dp"
+            android:layout_marginStart="112dp"
+            android:layout_marginTop="512dp"
+            android:backgroundTint="@color/dark_gray"
+            android:onClick="@{() -> viewmodel.addToExpression(0)}"
+            android:text="0"
+            android:textSize="50dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mainActivity_view" />
 
-    <Button
-        android:id="@+id/mainActivity_button_minus"
-        android:layout_width="80dp"
-        android:layout_height="90dp"
-        android:layout_marginStart="304dp"
-        android:layout_marginTop="285dp"
-        android:backgroundTint="@color/orange"
-        android:text="-"
-        android:textSize="50dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mainActivity_view" />
+        <Button
+            android:id="@+id/mainActivity_button_plus"
+            android:layout_width="80dp"
+            android:layout_height="90dp"
+            android:layout_marginStart="304dp"
+            android:layout_marginTop="175dp"
+            android:backgroundTint="@color/orange"
+            android:onClick="@{() -> viewmodel.addToExpression(Operator.PLUS)}"
+            android:text="+"
+            android:textSize="50dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mainActivity_view" />
 
-    <Button
-        android:id="@+id/mainActivity_button_mul"
-        android:layout_width="80dp"
-        android:layout_height="90dp"
-        android:layout_marginStart="304dp"
-        android:layout_marginTop="395dp"
-        android:backgroundTint="@color/orange"
-        android:text="*"
-        android:textSize="50dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mainActivity_view" />
+        <Button
+            android:id="@+id/mainActivity_button_minus"
+            android:layout_width="80dp"
+            android:layout_height="90dp"
+            android:layout_marginStart="304dp"
+            android:layout_marginTop="285dp"
+            android:backgroundTint="@color/orange"
+            android:onClick="@{() -> viewmodel.addToExpression(Operator.MINUS)}"
+            android:text="-"
+            android:textSize="50dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mainActivity_view" />
 
-    <Button
-        android:id="@+id/mainActivity_button_div"
-        android:layout_width="80dp"
-        android:layout_height="90dp"
-        android:layout_marginStart="304dp"
-        android:layout_marginTop="512dp"
-        android:backgroundTint="@color/orange"
-        android:text="/"
-        android:textSize="50dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mainActivity_view" />
+        <Button
+            android:id="@+id/mainActivity_button_mul"
+            android:layout_width="80dp"
+            android:layout_height="90dp"
+            android:layout_marginStart="304dp"
+            android:layout_marginTop="395dp"
+            android:backgroundTint="@color/orange"
+            android:onClick="@{() -> viewmodel.addToExpression(Operator.MUL)}"
+            android:text="*"
+            android:textSize="50dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mainActivity_view" />
 
-    <Button
-        android:id="@+id/mainActivity_button_equal"
-        android:layout_width="80dp"
-        android:layout_height="90dp"
-        android:layout_marginStart="204dp"
-        android:layout_marginTop="512dp"
-        android:backgroundTint="@color/dark_gray"
-        android:text="="
-        android:textSize="50dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mainActivity_view" />
+        <Button
+            android:id="@+id/mainActivity_button_div"
+            android:layout_width="80dp"
+            android:layout_height="90dp"
+            android:layout_marginStart="304dp"
+            android:layout_marginTop="512dp"
+            android:backgroundTint="@color/orange"
+            android:onClick="@{() -> viewmodel.addToExpression(Operator.DIV)}"
+            android:text="/"
+            android:textSize="50dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mainActivity_view" />
 
-    <Button
-        android:id="@+id/mainActivity_button_all_clear"
-        android:layout_width="80dp"
-        android:layout_height="90dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="65dp"
-        android:backgroundTint="@color/light_gray"
-        android:text="AC"
-        android:textSize="30dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mainActivity_view" />
+        <Button
+            android:id="@+id/mainActivity_button_equal"
+            android:layout_width="80dp"
+            android:layout_height="90dp"
+            android:layout_marginStart="204dp"
+            android:layout_marginTop="512dp"
+            android:backgroundTint="@color/dark_gray"
+            android:onClick="@{() -> viewmodel.calculate()}"
+            android:text="="
+            android:textSize="50dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mainActivity_view" />
 
-    <Button
-        android:id="@+id/mainActivity_button_last_clear"
-        android:layout_width="80dp"
-        android:layout_height="90dp"
-        android:layout_marginStart="304dp"
-        android:layout_marginTop="65dp"
-        android:backgroundTint="@color/orange"
-        android:text="←"
-        android:textSize="30dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mainActivity_view" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <Button
+            android:id="@+id/mainActivity_button_all_clear"
+            android:layout_width="80dp"
+            android:layout_height="90dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="65dp"
+            android:backgroundTint="@color/light_gray"
+            android:onClick="@{() -> viewmodel.removeAllExpression()}"
+            android:text="AC"
+            android:textSize="30dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mainActivity_view" />
+
+        <Button
+            android:id="@+id/mainActivity_button_last_clear"
+            android:layout_width="80dp"
+            android:layout_height="90dp"
+            android:layout_marginStart="304dp"
+            android:layout_marginTop="65dp"
+            android:backgroundTint="@color/orange"
+            android:onClick="@{() -> viewmodel.removeExpression()}"
+            android:text="←"
+            android:textSize="30dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mainActivity_view" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
