@@ -33,17 +33,33 @@ data class Expression(private val values: List<Any> = emptyList()) {
     }
 
     fun removeExpression(): Expression {
-        if (isFirstExpressionEmpty()) {
-            return Expression(values)
+        if (isNumber() && isNumberLength()) {
+            return removeNumberExpression()
+        }
+        if (!isFirstExpressionEmpty()) {
+            return EMPTY
         }
         return Expression(values.dropLast(1))
     }
+
+    private fun removeNumberExpression(): Expression {
+        val value = values.last().toString().toMutableList()
+        value.removeLast()
+        return Expression(values.dropLast(1) + value.joinToString("").toInt())
+    }
+
+    private fun isNumberLength() =
+        values.last().toString().length >= 2
+
+    private fun isNumber(): Boolean =
+        values.last().toString().all { it.isDigit() }
+
 
     fun removeAllExpresstion(): Expression =
         EMPTY
 
     private fun isFirstExpressionEmpty() =
-        values.size == 1 && values.last() == 0
+        values.size == 1
 
     companion object {
         val EMPTY = Expression(listOf(0))
