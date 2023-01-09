@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="model"
+            type="com.qure.calculator_tdd.domain.model.Memory" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp">
+
+        <TextView
+            android:id="@+id/itemResult_textView_expression"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:text="@{model.expression.toString()}"
+            android:textSize="50dp"
+            android:gravity="right"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/itemResult_textView_result"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:text="@{model.result.toString()}"
+            android:textSize="50dp"
+            android:gravity="right"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/itemResult_textView_expression" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
